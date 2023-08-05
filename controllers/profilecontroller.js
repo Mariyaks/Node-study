@@ -37,6 +37,22 @@ const createProfile = async (req, res) => {
     }
 };
 
-module.exports = { createProfile,upload }
+const getAllProfile = async (req, res) => {
+  try {
+      const userProfile = await db.profile_tbl.findAll();
+  
+      if (userProfile.length === 0) {
+       res.status(404).json({ message: "No profile found for the user." });
+      } else {
+       res.status(200).json({ message: "profile retrieved successfully.", data: { userProfile } });
+      }
+  } catch (error) {
+      console.error('Error:', error.message);
+      console.error('Stack trace:', error.stack);
+      res.status(500).json({ message: "Error retrieving addresses.", error });
+  }
+  };
+
+module.exports = { createProfile,upload, getAllProfile}
 
 

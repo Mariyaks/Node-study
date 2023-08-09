@@ -1,7 +1,27 @@
 const db = require('../models')
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 
+// const generateTokens = (user) => {
+//   const payload = {
+//     userId: user.id, // Use the user's ID from the database
+//     email: user.email,
+//     role: user.role, // Assuming you have a 'role' property in your user model
+//   };
+
+//   // Generate an access token with a short expiration (15 minutes)
+//   const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+//     expiresIn: '15m',
+//   });
+
+//   const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+//     expiresIn: '7d',
+//   });
+
+//   return { accessToken, refreshToken };
+// };
 
 
 const login = async (req, res) => {

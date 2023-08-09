@@ -21,9 +21,9 @@ app.use('/api/addresses', require('./routes/addressrotue'))
 app.use('/api/profile_tbl', require('./routes/profileroute'))
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+5
+const port = 8002;
 
-
-const port = 8008;
 // const localIpAddress = getLocalIpAddress();
 
 // function getLocalIpAddress() {

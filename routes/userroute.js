@@ -7,6 +7,7 @@ const router = express.Router();
 
 
 router.post("/createuser", createuser);   // Create a new address
+
 router.get("/",getAllUser);
 
 router.put("/:user_id", updateUser);

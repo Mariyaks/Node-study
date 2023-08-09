@@ -16,9 +16,9 @@ const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {    // .
     const RefreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
     expiresIn: '3m',
     });
-    const userToken = await db.userToken.findOne({where:{user_id: user.user_id } });
-if (userToken) userToken.destroy();
-    await new db.userToken({ user_id: user.user_id, token: RefreshToken }).save();
+    const userToken = await db.usertoken.findOne({where:{user_id: user.user_id } });
+    if (userToken) userToken.destroy();
+    await new db.usertoken({ user_id: user.user_id, token: RefreshToken }).save();
 
 
 return { accessToken:accessToken, RefreshToken:RefreshToken};
@@ -88,4 +88,4 @@ const authorizeRole = (role) => {
       
 
 
-    module.exports = {generateAccessToken, authenticateAccessToken, verifyRefreshToken, authorizeRole}
+    module.exports = {generateAccessToken, authenticateAccessToken, authorizeRole, verifyRefreshToken}

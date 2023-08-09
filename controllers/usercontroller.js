@@ -1,6 +1,22 @@
 const db = require('../models');
 const bcrypt = require('bcrypt');
+const { generateAccessToken } = require('../config/utils/auth');
 
+
+// // Function to generate an access token
+// const generateAccessToken = (user) => {
+//     const payload = {
+//       userId: user.user_id,
+//       email: user.email,
+//     //   role: user.role,
+//     };
+  
+//     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+//       expiresIn: '15m', // Set your desired expiration time
+//     });
+  
+//     return accessToken;
+//   };
 
 const userprofile = async (req, res) => {
 
@@ -44,6 +60,7 @@ const createuser = async (req, res) => {
             phone,
             password: hashedPassword
         });
+        const accessToken = generateAccessToken(User);
         res.status(201).json({ message: "User registration created successfully.", User });
     } 
     } catch (error) {
@@ -51,7 +68,6 @@ const createuser = async (req, res) => {
         res.status(500).json({ message: "Error creating user.", error });
     }
 }
-
 
 
  const getAllUser = async (req, res) => {
@@ -124,4 +140,4 @@ const deleteUser = async (req, res) => {
  
 
 
- module.exports ={createuser,getAllUser,updateUser,deleteUser, userprofile}
+ module.exports ={createuser,getAllUser,updateUser,deleteUser, userprofile, generateAccessToken}

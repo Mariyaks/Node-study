@@ -31,6 +31,11 @@ module.exports =(sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         },
+        deviceToken : {
+            type: DataTypes.TEXT,
+            allowNull: true
+            
+        },
     }, 
     {
     paranoid: true,

@@ -1,20 +1,58 @@
 const db = require('../models');
+const bcrypt = require('bcrypt');
 
- const createuser = async (req, res) => {
-    const {name,email,phone,password} = req.body;
-    try {
-        const user = await db.user.create({
+
+const userprofile = async (req, res) => {
+
+    console.log('test');
+    const { name, email, password, phone } = req.body;
+    
+         try {
+            const hasUserWithEmail = await db.user.count({ where: { email } })
+            if (hasUserWithEmail) {
+             res.status(400).json({ message: ' existing user.',hasUserWithEmail });
+             return
+            }else{
+    
+             res.status(400).json({ message: ' Nonexisting user.' });
+    
+            }
+         } catch (error) {
+            res.status(500).json({ message: 'Error creating user.', error });
+         }
+    };
+             
+const createuser = async (req, res) => {
+    const { role, name, email, phone, password } = req.body;
+        try {
+            const hasUserWithEmail = await db.user.count({ where: { email } })
+            if (hasUserWithEmail) {
+             res.status(400).json({ message: 'Already existing user.' });
+             return
+            }
+            else if(!password || password === null) {
+             return res.status(400).json({ message: 'Password is Missing.' });
+             
+            }
+             else{
+    
+            const hashedPassword = await bcrypt.hash(password, 10);
+        const User = await db.user.create({
+            role,
             name,
             email,
             phone,
-            password
+            password: hashedPassword
         });
-        res.status(201).json({ message: "User registration created successfully.", user });
+        res.status(201).json({ message: "User registration created successfully.", User });
+    } 
     } catch (error) {
         console.log("stack trace:", error.stack);
-        res.status(500).json({ message: "Error creating address.", error });
+        res.status(500).json({ message: "Error creating user.", error });
     }
- }
+}
+
+
 
  const getAllUser = async (req, res) => {
     try {
@@ -81,7 +119,9 @@ const deleteUser = async (req, res) => {
       console.error('Error deleting user:', error);
       res.status(500).json({ message: "Error deleting user", error: error.message });
     }
-  };
+};
+
+ 
 
 
- module.exports ={createuser,getAllUser,updateUser,deleteUser}
+ module.exports ={createuser,getAllUser,updateUser,deleteUser, userprofile}

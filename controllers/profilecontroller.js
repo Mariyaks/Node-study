@@ -2,22 +2,33 @@ const db = require('../models')
 const multer = require('multer');
 const path = require('path');
 
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, './uploads'); // Specify the destination folder for storing uploaded images
     },
-    filename: function (req, file, cb) {
-      const ext = path.extname(file.originalname);
-      cb(null, Date.now() + ext); // Set a unique filename for the uploaded image
-    },
+    filename: (req, file, cb) => {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+      const fileExtension = file.originalname.split('.').pop();
+      cb(null, 'image-' + uniqueSuffix + '.' + fileExtension);
+  },
   });
+
+  const Filter = (req, file, cb) => {
+    if (file.mimetype.startsWith('image/')) {
+        cb(null, true);
+    } else {
+        cb(new Error('Invalid file type. Only image files are allowed.'));
+    }
+    };
   
-  const upload = multer({ storage });
+  const upload = multer({ storage,Filter });
 
 const createProfile = async (req, res) => {
     
     const { firstname,lastname,address,dob,phone,gender,email } = req.body;
-    const profile_pic = req.file.filename;
+    const profile_pc = req.file.filename;             // Assuming req.file has the uploaded file information
+    const imageUrl = `/uploads/${profile_pc}`;
     try {
         const profile = await db.profile_tbl.create({
             firstname,
@@ -27,15 +38,16 @@ const createProfile = async (req, res) => {
             phone,
             gender,
             email,
-            profile_pic
+            profile_pic: imageUrl,
         });
     
-        res.status(201).json({ message: "Profile created successfully.", profile });
+        res.status(201).json({ message: "Profile created successfully.", profile, imageUrl });
     } catch (error) {
         console.log("stack trace:", error.stack);
         res.status(500).json({ message: "Error creating profile.", error });
     }
 };
+
 
 const getAllProfile = async (req, res) => {
   try {
@@ -51,7 +63,7 @@ const getAllProfile = async (req, res) => {
       console.error('Stack trace:', error.stack);
       res.status(500).json({ message: "Error retrieving addresses.", error });
   }
-  };
+};
 
 module.exports = { createProfile,upload, getAllProfile}
 

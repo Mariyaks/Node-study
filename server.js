@@ -17,7 +17,7 @@ app.use('/api/users/', require('./routes/userroute'))
 app.use('/api/addresses', require('./routes/addressrotue'))
 app.use('/api/profile_tbl', require('./routes/profileroute'))
 
-const port = 8080;
+const port = 8081;
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

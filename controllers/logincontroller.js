@@ -1,6 +1,7 @@
 const db = require('../models')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { generateAccessToken } = require('../config/utils/auth');
 require('dotenv').config();
 
 
@@ -40,8 +41,10 @@ const login = async (req, res) => {
       const passwordMatch = await bcrypt.compare(password, login.password);
 
       if (passwordMatch) {
+
+        const accessToken = await generateAccessToken(login);
         // If passwords match, login is successful
-        return res.status(200).json({ message: "Login successful.", login });
+        return res.status(200).json({ message: "Login successful.", login, accessToken });
       } else {
         // If passwords don't match, login failed
         return res.status(401).json({ message: "Invalid email or password." });

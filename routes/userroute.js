@@ -1,14 +1,14 @@
 const express = require("express");
+const router = express.Router();
 
 const {createuser,getAllUser,updateUser,deleteUser} = require("../controllers/usercontroller");
+const cache = require("../controllers/cachecontroller");
 
-
-const router = express.Router();
 
 
 router.post("/createuser", createuser);   // Create a new address
 
-router.get("/",getAllUser);
+router.get("/", cache(60), getAllUser);
 
 router.put("/:user_id", updateUser);
 

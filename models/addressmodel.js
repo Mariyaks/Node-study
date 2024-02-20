@@ -1,6 +1,8 @@
+
+// const User = Sequelize
 module.exports =(sequelize, DataTypes) => {
 
-    const Address = sequelize.define("Address", {
+    const Address = sequelize.define("addresses", {
         address_id: {
          type: DataTypes.INTEGER,
          primaryKey: true,
@@ -55,6 +57,13 @@ module.exports =(sequelize, DataTypes) => {
          updatedAt:'updated_at',
          deletedAt: 'deleted_at',
         });
+
+
+   
+
+    
+
+              
     
         
     

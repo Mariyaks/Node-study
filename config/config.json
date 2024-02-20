@@ -1,28 +1,23 @@
-
-
 {
-    
-    "development": {
-  
-        "username": "root",
-        "password": "Admin@123",
-        "database": "node_db",
-        "host": "172.21.0.2",
-        "dialect": "mysql"
-    },
-    "test": {
-        "username": "root",
-        "password": "Admin@123",
-        "database": "node_db",
-        "host": "172.21.0.2",
-        "dialect": "mysql"
-      
-    },
-    "production": {
-        "username": "root",
-        "password": "Admin@123",
-        "database": "node_db",
-        "host": "172.21.0.2",
-        "dialect": "mysql"
-    }
+  "development": {
+    "username": "root",
+    "password": "Admin@123",
+    "database": "node_db",
+    "host": "172.21.0.2",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "Admin@123",
+    "database": "node_db",
+    "host": "172.21.0.2",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "Admin@123",
+    "database": "node_db",
+    "host": "172.21.0.2",
+    "dialect": "mysql"
   }
+}

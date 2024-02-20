@@ -1,0 +1,8 @@
+{
+    "successful_order_v1": {
+      "default": "<h1> Hi {{name}}, Welcome to login </h1><ul><li>: {{order_id}}</li><li>Order Date: {{order_date}}</li><li>Total Amount: Rs.{{total_amount}}</li></ul><p>Thank you for your business!</p>",
+      "ml": null
+    } 
+}
+  
+

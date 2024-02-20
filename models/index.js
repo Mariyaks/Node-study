@@ -39,26 +39,29 @@ db.user = require('./usermodel')(sequelize, DataTypes)
 db.addresses = require('./addressmodel')(sequelize, DataTypes) 
 db.profile_tbl = require('./profilemodel')(sequelize, DataTypes) 
 db.usertoken = require('./usertokenmodel.js')(sequelize, DataTypes)
+db.success = require('./successmodel.js')(sequelize, DataTypes)
 
-//create association 
+
 db.user.hasMany(db.addresses, { 
     foreignKey: 'user_id',
     sourceKey:'user_id', 
     as: 'user'      //association naming
 });
+
 db.addresses.belongsTo(db.user, { 
     foreignKey: 'user_id' 
 }); 
 
-// //association with usertoken
-// db.user.hasMany(db.usertoken, {
+// db.user.hasMany(db.success, { 
 //     foreignKey: 'user_id',
-//     sourceKey: 'user_id',
-//     as: 'usertoken'
+//     sourceKey:'user_id', 
+//     as: 'usersuccess'      //association naming
 // });
-// db.usertoken.belongsTo(db.user, {
-//     foreignKey: 'user_id'
-// });
+
+// db.success.belongsTo(db.user, { 
+//     foreignKey: 'user_id' 
+// }); 
+
 
 
 

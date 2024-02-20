@@ -1,5 +1,6 @@
 const express = require('express')
-
+// const NodeCache = require('node-cache');
+// const cache = new NodeCache();
 
 const { sequelize } = require('./models');
 
@@ -20,10 +21,19 @@ app.use('/api/users/', require('./routes/loginroute'))
 app.use('/api/addresses', require('./routes/addressrotue'))
 app.use('/api/profile_tbl', require('./routes/profileroute'))
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-5
-const port = 8002;
+app.use('/api/checkout', require('./routes/checkoutroute'))
 
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+const port = 8009;
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+    }); 
+
+
+
+    
 // const localIpAddress = getLocalIpAddress();
 
 // function getLocalIpAddress() {
@@ -39,10 +49,10 @@ const port = 8002;
 //     return 'localhost'; 
 // }
 
-
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-    }); 
+//     app.listen(
+//     port,
+//     () => console.log('its alive on http://localhost:${PORT}')
+// )
 
     
 

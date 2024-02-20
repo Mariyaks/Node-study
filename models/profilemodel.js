@@ -6,7 +6,7 @@ module.exports =(sequelize, DataTypes) => {
          primaryKey: true,
          autoIncrement: true,
         },
-
+        
         firstname: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -48,7 +48,10 @@ module.exports =(sequelize, DataTypes) => {
         deletedAt :'deleted_at',
     });
 
+
+
+
+
+
     return Profile;
-
-
 }

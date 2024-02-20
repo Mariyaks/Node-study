@@ -1,7 +1,8 @@
 const db = require('../models');
 const bcrypt = require('bcrypt');
 const { generateAccessToken } = require('../config/utils/auth');
-
+const getLocalisedString = require('../config/utils/localisationHandler');
+const { Service } = require('../config/utils/orderEmail');
 
 // // Function to generate an access token
 // const generateAccessToken = (user) => {
@@ -53,15 +54,23 @@ const createuser = async (req, res) => {
              else{
     
             const hashedPassword = await bcrypt.hash(password, 10);
-        const User = await db.user.create({
+        const user = await db.user.create({
             role,
             name,
             email,
             phone,
             password: hashedPassword
         });
-        const accessToken = generateAccessToken(User);
-        res.status(201).json({ message: "User registration created successfully.", User });
+        const accessToken = await generateAccessToken(user);
+        const userEmail = 'mariyakarekkattu@gmail.com'; 
+        if (userEmail) {
+            const params = {
+                userName: user.name,
+            };
+            const emailContent = getLocalisedString('en', 'admin_notification_stouck_v1', params);
+            await emailService.sendEmail(userEmail, 'Insufficient Variant Quantity', emailContent);
+          }
+        res.status(200).json({ message: 'registration successful.', user ,accessToken})
     } 
     } catch (error) {
         console.log("stack trace:", error.stack);
@@ -140,4 +149,4 @@ const deleteUser = async (req, res) => {
  
 
 
- module.exports ={createuser,getAllUser,updateUser,deleteUser, userprofile, generateAccessToken}
+ module.exports ={createuser,getAllUser,updateUser,deleteUser, userprofile, generateAccessToken, }

@@ -1,15 +1,15 @@
 module.exports =(sequelize, DataTypes) => { 
 
-    const User = sequelize.define("User", {
+    const User = sequelize.define("user", {
         user_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         },
         role:{
-        type: DataTypes.STRING,
-        default: "user",
-        allowNull: true,
+            type: DataTypes.STRING,
+            allowNull: true,
+            defaultValue: "user"
         },
         name: {
         type: DataTypes.STRING,
@@ -44,6 +44,9 @@ module.exports =(sequelize, DataTypes) => {
         updatedAt:'updated_at',
         deletedAt:'deleted_at',
     });
+    
+
+  
     
    
    
